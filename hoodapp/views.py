@@ -2,17 +2,18 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm,CreateHoodForm
+from .models import Neighbourhood
 
 # Create your views here.
 def index(request):
 	'''
-	This view class will render the index  landing page
+	This view function will render the index  landing page
 	'''
 	return render(request,'index.html')
 
 def signup(request):
 	'''
-	This view class will implement user signup
+	This view function will implement user signup
 	'''
 	if request.method == 'POST':
 		form = SignUpForm(request.POST)
@@ -29,7 +30,7 @@ def signup(request):
 
 def createHood(request):
 	'''
-	This view class will create an instance of a neighbourhood
+	This view function will create an instance of a neighbourhood
 	'''
 	if request.method == 'POST':
 		form = CreateHoodForm(request.POST)
@@ -41,5 +42,22 @@ def createHood(request):
 	else:
 		form = CreateHoodForm()
 	return render(request,'hood/create.html',{"form":form})
+
+def editHood(request,hoodId):
+	'''
+	This view function will edit an instance of a neighbourhood
+	'''
+	if Neighbourhood.objects.get(pk = hoodId):
+		neighbourhood = Neighbourhood.objects.get(pk = hoodId)
+		form = CreateHoodForm(request.POST,instance = neighbourhood)
+		if form.is_valid():
+			hood = form.save(commit = False)
+			hood.save()
+			return redirect('index')
+	else:
+		form = CreateHoodForm(instance = Neighbourhood.objects.get(pk = hoodId))
+
+	return render(request,'hood/edit.html',{"form":form})
+
 
 

@@ -2,7 +2,7 @@
 {%load bootstrap3%}
 {%block content%}
 
-<h1 class="text-center">Kaa rada home page</h1>
+<h1 class="text-center">Create Hood</h1>
 <form action="{% url 'createHood' %}" method="post">
 	{%csrf_token%}
 	{% bootstrap_form form %}
