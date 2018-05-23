@@ -25,3 +25,5 @@ class CreateBusinessForm(forms.ModelForm):
 		fields = ['name','email_address','description']
 
 
+
+

@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm,CreateHoodForm
-from .models import Neighbourhood
+from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm
+from .models import Neighbourhood,Business
 
 # Create your views here.
 def index(request):
@@ -61,4 +61,16 @@ def editHood(request,hoodId):
 	return render(request,'hood/edit.html',{"form":form})
 
 
-
+def createBusiness(request):
+	'''
+	This function will create a Business Instance
+	'''
+	if request.method == 'POST':
+		form = CreateBusinessForm(request.POST)
+		if form.is_valid():
+			business = form.save(commit = False)
+			business.save()
+			return redirect('index')
+	else:
+		form = CreateBusinessForm()
+	return render(request,'business/create.html',{"form":form})
