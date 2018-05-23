@@ -7,6 +7,14 @@ class Business(models.Model):
 	name = models.CharField(max_length = 300)
 	description = models.TextField()
 	email_address = models.EmailField()
+
+	def __str__(self):
+		return self.name
+
+class Neighbourhood(models.Model):
+	name = models.CharField(max_length = 300)
+	location = models.CharField(max_length = 100)
+	population = models.IntegerField(max_length = 300)
 	
 	def __str__(self):
 		return self.name
