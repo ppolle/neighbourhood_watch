@@ -1,5 +1,31 @@
 {%extends 'base.html'%}
 {%block content%}
 <h1 class="text-center">Kaa rada Home Page</h1>
-<div class=""></div>
+<div class="container">
+	<div class="row">
+		
+	<div class="col-md-4">
+		{%for hood in neighbourhoods%}
+			<div class="panel panel-default">
+				
+				<div class="panel-heading">
+					{{hood.name}}
+				</div>
+				<div class="panel-body">
+					<p>{{hood.description}}</p>
+					
+					<a href="{% url 'editHood' hood.id %}" class="btn btn-sm btn-primary">Edit</a>
+					<a href="#" class="btn btn-sm btn-success">Join</a>
+				</div>
+				
+				
+
+			</div>
+		{%endfor%}
+				
+	</div>
+</div>
+</div>
+
+
 {%endblock%}

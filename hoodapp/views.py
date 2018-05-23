@@ -9,7 +9,8 @@ def index(request):
 	'''
 	This view function will render the index  landing page
 	'''
-	return render(request,'index.html')
+	neighbourhoods = Neighbourhood.objects.all()
+	return render(request,'index.html',{"neighbourhoods":neighbourhoods})
 
 def signup(request):
 	'''
