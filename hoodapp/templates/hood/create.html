@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+{%load bootstrap3%}
+{%block content%}
+
+<h1 class="text-center">Kaa rada home page</h1>
+<form action="{% url 'createHood' %}" method="post">
+	{%csrf_token%}
+	{% bootstrap_form form %}
+	<button type="submit" class="btn btn-success">Create Hood</button>
+</form>
+{%endblock%}

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
+from .forms import SignUpForm,CreateHoodForm
 
 # Create your views here.
 def index(request):
@@ -26,4 +26,20 @@ def signup(request):
 	else:
 		form = SignUpForm()
 	return render(request, 'authentication/signup.html', {'form': form})
+
+def createHood(request):
+	'''
+	This view class will create an instance of a neighbourhood
+	'''
+	if request.method == 'POST':
+		form = CreateHoodForm(request.POST)
+		if form.is_valid():
+			hood = form.save(commit = False)
+			hood.save()
+			return redirect('index')
+
+	else:
+		form = CreateHoodForm()
+	return render(request,'hood/create.html',{"form":form})
+
 
