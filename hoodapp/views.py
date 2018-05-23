@@ -74,3 +74,10 @@ def createBusiness(request):
 	else:
 		form = CreateBusinessForm()
 	return render(request,'business/create.html',{"form":form})
+
+def businessIndex(request):
+	'''
+	This post will fetch all business instances belonging to the current logged in user
+	'''
+	businesses= Business.objects.all()
+	return render(request,'business/index.html',{"businesses":businesses})
