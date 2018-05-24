@@ -116,3 +116,17 @@ def editBusiness(request,businessId):
 	else:
 		form = CreateBusinessForm(instance = business)
 	return render(request,'business/edit.html',{"form":form,"business":business})
+
+def search(request):
+	'''
+	This view function will implement search of a hood
+	'''
+	if request.GET['search']:
+		search_term = request.GET.get("search")
+		hoods = Neighbourhood.objects.filter(name__icontains = search_term)
+		message = f"{search_term}"
+
+		return render(request,'hood/search.html',{"message":message,"hoods":hoods})
+	else:
+		message = "You Haven't searched for any item"
+		return render(request,'hood/search.html',{"message":message})

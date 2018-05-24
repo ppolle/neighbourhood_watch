@@ -12,4 +12,5 @@ urlpatterns=[
     url(r'^profile/$',views.profile,name = 'profile'),
     url(r'^editProfile/$',views.editProfile,name= 'editProfile'),
     url(r'^editBusiness/(\d+)',views.editBusiness,name = 'editBusiness'),
+    url(r'^search/$',views.search,name= 'search'),
 ]
