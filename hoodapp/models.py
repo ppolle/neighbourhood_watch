@@ -45,4 +45,15 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()
 
 
+class Join(models.Model):
+	'''
+	Model that keeps track of what user has joined what neighbourhood
+	'''
+	user_id = models.ForeignKey(User)
+	hood_id = models.ForeignKey(Neighbourhood)
+
+	def __str__(self):
+		return self.user_id
+
+
 

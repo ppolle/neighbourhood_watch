@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
+from django.http  import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm
-from .models import Neighbourhood,Business,Profile
+from .models import Neighbourhood,Business,Profile,Join
 
 # Create your views here.
 def index(request):
@@ -130,3 +131,17 @@ def search(request):
 	else:
 		message = "You Haven't searched for any item"
 		return render(request,'hood/search.html',{"message":message})
+
+def join(request,hoodId):
+	'''
+	This view function will implement adding 
+	'''
+	neighbourhood = Neighbourhood.objects.get(pk = hoodId)
+	if Join.objects.filter(user_id = request.user).exists():
+		
+		Join.objects.filter(user_id = request.user).update(hood_id = neighbourhood)
+	else:
+
+		Join(user_id=request.user,hood_id = neighbourhood).save()
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
