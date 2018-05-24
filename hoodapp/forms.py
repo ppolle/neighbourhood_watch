@@ -24,6 +24,10 @@ class CreateBusinessForm(forms.ModelForm):
 		model = Business
 		fields = ['name','email_address','description']
 
+class EditprofileForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ['bio']
 
 
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm
+from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm
 from .models import Neighbourhood,Business,Profile
 
 # Create your views here.
@@ -87,3 +87,18 @@ def profile(request):
 	'''
 	profile = Profile.objects.get(user = request.user)
 	return render(request,'accounts/profile.html',{"profile":profile})
+
+def editProfile(request):
+	'''
+	This view function will edit a profile instance
+	'''
+
+	if request.method == 'POST':
+		form = EditprofileForm(request.POST,instance = Profile.objects.get(user = request.user))
+		if form.is_valid():
+			form.save()
+			return redirect('profile')
+	else:
+		form = EditprofileForm(instance = Profile.objects.get(user = request.user))
+
+	return render(request,'accounts/edit.html',{"form":form})
