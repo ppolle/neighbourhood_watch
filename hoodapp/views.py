@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm
-from .models import Neighbourhood,Business
+from .models import Neighbourhood,Business,Profile
 
 # Create your views here.
 def index(request):
@@ -36,27 +36,26 @@ def createHood(request):
 	if request.method == 'POST':
 		form = CreateHoodForm(request.POST)
 		if form.is_valid():
-			hood = form.save(commit = False)
-			hood.save()
+			form.save()
 			return redirect('index')
 
 	else:
 		form = CreateHoodForm()
 	return render(request,'hood/create.html',{"form":form})
 
-def editHood(request,hoodId):
+def editHood(request,hood_id):
 	'''
 	This view function will edit an instance of a neighbourhood
 	'''
-	if Neighbourhood.objects.get(pk = hoodId):
-		neighbourhood = Neighbourhood.objects.get(pk = hoodId)
-		form = CreateHoodForm(request.POST,instance = neighbourhood)
+	
+	if request.method == 'POST':
+		form = CreateHoodForm(request.POST,instance = Neighbourhood.objects.get(pk = hood_id))
 		if form.is_valid():
-			hood = form.save(commit = False)
-			hood.save()
+			form.save()
+			
 			return redirect('index')
 	else:
-		form = CreateHoodForm(instance = Neighbourhood.objects.get(pk = hoodId))
+		form = CreateHoodForm(instance = Neighbourhood.objects.get(pk = hood_id))
 
 	return render(request,'hood/edit.html',{"form":form})
 
@@ -81,3 +80,10 @@ def businessIndex(request):
 	'''
 	businesses= Business.objects.all()
 	return render(request,'business/index.html',{"businesses":businesses})
+
+def profile(request):
+	'''
+	This view function will fetch a user's profile
+	'''
+	profile = Profile.objects.get(user = request.user)
+	return render(request,'accounts/profile.html',{"profile":profile})

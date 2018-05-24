@@ -4,8 +4,9 @@
 <div class="container">
 	<div class="row">
 		
-	<div class="col-md-4">
+	
 		{%for hood in neighbourhoods%}
+		<div class="col-md-4">
 			<div class="panel panel-default">
 				
 				<div class="panel-heading">
@@ -14,16 +15,17 @@
 				<div class="panel-body">
 					<p>{{hood.description}}</p>
 					
-					<a href="{% url 'editHood' hood.id %}" class="btn btn-sm btn-primary">Edit</a>
+					<a href="" class="btn btn-sm btn-primary">Edit</a>
 					<a href="#" class="btn btn-sm btn-success">Join</a>
 				</div>
 				
 				
 
 			</div>
+			</div>
 		{%endfor%}
 				
-	</div>
+	
 </div>
 </div>
 

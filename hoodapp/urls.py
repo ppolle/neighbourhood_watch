@@ -6,7 +6,8 @@ urlpatterns=[
     url('^$',views.index,name = 'index'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^createHood/$', views.createHood, name='createHood'),
-    url(r'^editHood/(\d+)', views.editHood, name='editHood'),
+    url(r'^editHood/(\d+)',views.editHood,name="editHood"),
     url(r'^createBusiness/$',views.createBusiness,name= 'createBusiness'),
     url(r'^allBusinesses/$',views.businessIndex,name= 'allBusinesses'),
+    url(r'^profile/$',views.profile,name = 'profile'),
 ]

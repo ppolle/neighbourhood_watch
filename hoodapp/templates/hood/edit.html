@@ -4,6 +4,7 @@
 
 <h1 class="text-center">Edit Hood</h1>
 <form action="{% url 'editHood' %}" method="post">
+	
 	{%csrf_token%}
 	{% bootstrap_form form %}
 	<button type="submit" class="btn btn-success">Edit Hood</button>
