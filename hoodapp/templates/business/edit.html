@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%load bootstrap3%}
+{%block content%}
+
+<h1 class="text-center">Edit Business</h1>
+<form action="{% url 'editBusiness' business.id %}" method="post">
+	
+	{%csrf_token%}
+	{% bootstrap_form form %}
+	<button type="submit" class="btn btn-success">Update Biz Info</button>
+</form>
+{%endblock%}

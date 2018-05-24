@@ -47,17 +47,17 @@ def editHood(request,hood_id):
 	'''
 	This view function will edit an instance of a neighbourhood
 	'''
-	
+	neighbourhood = Neighbourhood.objects.get(pk = hood_id)
 	if request.method == 'POST':
-		form = CreateHoodForm(request.POST,instance = Neighbourhood.objects.get(pk = hood_id))
+		form = CreateHoodForm(request.POST,instance = neighbourhood)
 		if form.is_valid():
 			form.save()
 			
 			return redirect('index')
 	else:
-		form = CreateHoodForm(instance = Neighbourhood.objects.get(pk = hood_id))
+		form = CreateHoodForm(instance = neighbourhood)
 
-	return render(request,'hood/edit.html',{"form":form})
+	return render(request,'hood/edit.html',{"form":form,"neighbourhood":neighbourhood})
 
 
 def createBusiness(request):
@@ -69,7 +69,7 @@ def createBusiness(request):
 		if form.is_valid():
 			business = form.save(commit = False)
 			business.save()
-			return redirect('index')
+			return redirect('allBusinesses')
 	else:
 		form = CreateBusinessForm()
 	return render(request,'business/create.html',{"form":form})
@@ -92,13 +92,27 @@ def editProfile(request):
 	'''
 	This view function will edit a profile instance
 	'''
-
+	profile = Profile.objects.get(user = request.user)
 	if request.method == 'POST':
-		form = EditprofileForm(request.POST,instance = Profile.objects.get(user = request.user))
+		form = EditprofileForm(request.POST,instance = profile )
 		if form.is_valid():
 			form.save()
 			return redirect('profile')
 	else:
-		form = EditprofileForm(instance = Profile.objects.get(user = request.user))
+		form = EditprofileForm(instance = profile )
 
 	return render(request,'accounts/edit.html',{"form":form})
+
+def editBusiness(request,businessId):
+	'''
+	This view function will edit an instance of a Business
+	'''
+	business = Business.objects.get(pk = businessId)
+	if request.method == 'POST':
+		form = CreateBusinessForm(request.POST,instance = business)
+		if form.is_valid():
+			form.save()
+			return redirect('allBusinesses')
+	else:
+		form = CreateBusinessForm(instance = business)
+	return render(request,'business/edit.html',{"form":form,"business":business})
