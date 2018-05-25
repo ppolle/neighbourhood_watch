@@ -182,7 +182,8 @@ def hoodHome(request,hoodId):
 	This functin will retrive instances of a neighbourhood
 	'''
 	hood = Neighbourhood.objects.get(pk = hoodId)
-	return render(request,'hood/index.html',{"hood":hood})
+	businesses = Business.objects.filter(hood = hoodId)
+	return render(request,'hood/index.html',{"hood":hood,"businesses":businesses})
 def exitHood(request,hoodId):
 	'''
 	This function will delete a neighbourhood instance in the join table

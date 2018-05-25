@@ -28,7 +28,31 @@
 				  <!-- Tab panes -->
 				  <div class="tab-content">
 				    <div role="tabpanel" class="tab-pane active" id="home">Home</div>
-				    <div role="tabpanel" class="tab-pane" id="profile">Hood Politics</div>
+				    <div role="tabpanel" class="tab-pane" id="profile">
+				    	<div class="row">
+				    		
+					     	{% for biz in businesses %}
+						    	<div class="col-md-6">
+									<div class="panel panel-default">
+										
+										<div class="panel-heading">
+											{{biz.name}}
+										</div>
+										<div class="panel-body">
+											<p>{{biz.description}}</p>
+											
+											<a href="{% url 'editBusiness' biz.id %}" class="btn btn-sm btn-primary">Edit</a>
+											<a href="#" class="btn btn-sm btn-success">Join</a>
+										</div>
+										
+										
+
+									</div>
+								</div>
+
+					    	{%endfor%}
+				    	</div>
+				    </div>
 			
 				  </div>
 
