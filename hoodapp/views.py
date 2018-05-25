@@ -152,3 +152,11 @@ def hoodHome(request,hoodId):
 	'''
 	hood = Neighbourhood.objects.get(pk = hoodId)
 	return render(request,'hood/index.html',{"hood":hood})
+def exitHood(request,hoodId):
+	'''
+	This function will delete a neighbourhood instance in the join table
+	'''
+	if Join.objects.filter(user_id = request.user).exists():
+		Join.objects.get(user_id = request.user).delete()
+
+		return redirect('index')

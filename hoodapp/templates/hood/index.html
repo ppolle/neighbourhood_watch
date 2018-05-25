@@ -6,12 +6,12 @@
 				{% include 'partials/_sidebar.html' %}
 			</div>
 			<div class="col-md-7">
-				<h2><strong>{{hood.name}}</strong></h2>
-				<h4>County: <strong>{{hood.location}}</strong> Hood Population : <strong>{{hood.population}}</strong></h4>
+				<h2><strong>{{hood.name.capitalize}}</strong></h2>
+				<h4>County: <strong>{{hood.location.capitalize}}</strong> Hood Population : <strong>{{hood.population}}</strong></h4>
 				<h4>{{hood.bio}}</h4>
 					
 				<a class="btn btn-sm btn-success" href="">Create Forum Post</a>
-				<a class="btn btn-sm btn-danger" href="">Exit Neighbourhood</a>
+				<a class="btn btn-sm btn-danger" href="{% url 'exitHood' hood.id %}">Exit Neighbourhood</a>
 				
 				<!-- Start of tabbed data -->				
 				<p>
