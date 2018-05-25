@@ -76,11 +76,14 @@ def createBusiness(request):
 	if Join.objects.filter(user_id = request.user).exists():
 
 		if request.method == 'POST':
+			join = Join.objects.get(user_id = request.user)
+			neighbourhood = Neighbourhood.objects.get(id = join.hood_id.id)
+
 			form = CreateBusinessForm(request.POST)
 			if form.is_valid():
 				business = form.save(commit = False)
 				business.user = request.user
-				business.hood = Join.objects.get(user_id = request.user).hood_id()
+				business.hood = neighbourhood
 				business.save()
 				return redirect('allBusinesses')
 		else:
