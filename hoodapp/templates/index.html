@@ -1,8 +1,12 @@
 {%extends 'base.html'%}
 {%block content%}
 <h1 class="text-center">Kaa rada Home Page</h1>
+
 <div class="container">
+	{% include 'partials/_errors.html' %}
+		
 	<div class="row">
+
 		
 	
 		{%for hood in neighbourhoods%}

@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'neighbourhoodwatch.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'neighbourhood_watch',
+        'NAME': 'hood',
         'USER': 'peter',
     'PASSWORD':'iamBOSS12',
     }

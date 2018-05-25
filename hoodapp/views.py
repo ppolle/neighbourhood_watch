@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm
 from .models import Neighbourhood,Business,Profile,Join
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -38,6 +39,7 @@ def createHood(request):
 		form = CreateHoodForm(request.POST)
 		if form.is_valid():
 			form.save()
+			messages.success(request, 'You Have succesfully created a hood.')
 			return redirect('index')
 
 	else:
@@ -63,27 +65,34 @@ def editHood(request,hood_id):
 		form = CreateHoodForm(instance = neighbourhood)
 		if Join.objects.filter(user_id = request.user).exists():
 			join = Join.objects.get(user_id = request.user)
-			return render(request,'hood/edit.html',{"form":form,"join":join})
+			return render(request,'hood/edit.html',{"form":form,"join":join,"neighbourhood":neighbourhood})
 		else:
-			return render(request,'hood/edit.html',{"form":form})
+			return render(request,'hood/edit.html',{"form":form,"neighbourhood":neighbourhood})
 
 def createBusiness(request):
 	'''
 	This function will create a Business Instance
 	'''
-	if request.method == 'POST':
-		form = CreateBusinessForm(request.POST)
-		if form.is_valid():
-			business = form.save(commit = False)
-			business.save()
-			return redirect('allBusinesses')
-	else:
-		form = CreateBusinessForm()
-		if Join.objects.filter(user_id = request.user).exists():
-			join = Join.objects.get(user_id = request.user)
-			return render(request,'business/create.html',{"form":form,"join":join})
+	if Join.objects.filter(user_id = request.user).exists():
+
+		if request.method == 'POST':
+			form = CreateBusinessForm(request.POST)
+			if form.is_valid():
+				business = form.save(commit = False)
+				business.user = request.user
+				business.hood = Join.objects.get(user_id = request.user).hood_id()
+				business.save()
+				return redirect('allBusinesses')
 		else:
-			return render(request,'business/create.html',{"form":form})
+			form = CreateBusinessForm()
+			if Join.objects.filter(user_id = request.user).exists():
+				join = Join.objects.get(user_id = request.user)
+				return render(request,'business/create.html',{"form":form,"join":join})
+			else:
+				return render(request,'business/create.html',{"form":form})
+	else:
+		messages.error(request, 'Error! Join a Neighbourhood to create a Business')
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def businessIndex(request):
 	'''
