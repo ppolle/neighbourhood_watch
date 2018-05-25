@@ -1,11 +1,14 @@
 {%extends 'base.html'%}
 {% block content%}
-	<div class="row" style="padding-bottom:20px">
+	<div class="row container" style="padding-bottom:20px">
 		
-			<div class="col-md-4">
-				<img class="center-block img-responsive img-circle" src="{{profile.profile_pic.url}}" alt="" style="width:170px; height:170px">
+			<div class="col-md-3" style="padding-top: 24px">
+				{%if join%}
+					{% include 'partials/_sidebar.html' %}
+				{%endif%}
+
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-7">
 				<h2><strong>{{profile.user}}</strong></h2>
 				<h4><strong></strong> Post <strong></strong> Follower <strong>{{following}}</strong> Following</h4>
 				<h4>{{profile.bio}}</h4>
@@ -22,6 +25,7 @@
 				        
 					{%endif%}
 			</div>
+			<div class="col-md-2"></div>
 		
 		</div>
 

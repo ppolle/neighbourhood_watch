@@ -87,7 +87,12 @@ def profile(request):
 	This view function will fetch a user's profile
 	'''
 	profile = Profile.objects.get(user = request.user)
-	return render(request,'accounts/profile.html',{"profile":profile})
+	if Join.objects.filter(user_id = request.user).exists():
+		join = Join.objects.get(user_id = request.user)
+		return render(request,'accounts/profile.html',{"profile":profile,"join":join})
+	else:
+		return render(request,'accounts/profile.html',{"profile":profile})
+	
 
 def editProfile(request):
 	'''
