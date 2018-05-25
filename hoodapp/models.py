@@ -51,7 +51,7 @@ class Join(models.Model):
 	'''
 	Model that keeps track of what user has joined what neighbourhood
 	'''
-	user_id = models.ForeignKey(User)
+	user_id = models.OneToOneField(User)
 	hood_id = models.ForeignKey(Neighbourhood)
 
 	def __str__(self):
