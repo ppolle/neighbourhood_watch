@@ -31,7 +31,7 @@
 		</div>
 		{%else%}
 		<div class="panel-body">
-				<h3 class="text-center">No neighbourhood with the name <strong>{{message}}</strong> exists!</h3>
+				<h4 class="text-center">No neighbourhood with the name <strong>{{message}}</strong> exists! You can however create it <a href="{% url 'createHood' %}">here</a></h4>
 			</div>
 		{%endif%}
 	    

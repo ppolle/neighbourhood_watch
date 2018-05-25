@@ -28,7 +28,7 @@ def signup(request):
 			return redirect('index')
 	else:
 		form = SignUpForm()
-	return render(request, 'authentication/signup.html', {'form': form})
+	return render(request, 'registration/signup.html', {'form': form})
 
 def createHood(request):
 	'''
@@ -42,7 +42,11 @@ def createHood(request):
 
 	else:
 		form = CreateHoodForm()
-	return render(request,'hood/create.html',{"form":form})
+		if Join.objects.filter(user_id = request.user).exists():
+			join = Join.objects.get(user_id = request.user)
+			return render(request,'hood/create.html',{"form":form,"join":join})
+		else:
+			return render(request,'hood/create.html',{"form":form})
 
 def editHood(request,hood_id):
 	'''
@@ -57,9 +61,11 @@ def editHood(request,hood_id):
 			return redirect('index')
 	else:
 		form = CreateHoodForm(instance = neighbourhood)
-
-	return render(request,'hood/edit.html',{"form":form,"neighbourhood":neighbourhood})
-
+		if Join.objects.filter(user_id = request.user).exists():
+			join = Join.objects.get(user_id = request.user)
+			return render(request,'hood/edit.html',{"form":form,"join":join})
+		else:
+			return render(request,'hood/edit.html',{"form":form})
 
 def createBusiness(request):
 	'''
@@ -73,7 +79,11 @@ def createBusiness(request):
 			return redirect('allBusinesses')
 	else:
 		form = CreateBusinessForm()
-	return render(request,'business/create.html',{"form":form})
+		if Join.objects.filter(user_id = request.user).exists():
+			join = Join.objects.get(user_id = request.user)
+			return render(request,'business/create.html',{"form":form,"join":join})
+		else:
+			return render(request,'business/create.html',{"form":form})
 
 def businessIndex(request):
 	'''
@@ -106,8 +116,12 @@ def editProfile(request):
 			return redirect('profile')
 	else:
 		form = EditprofileForm(instance = profile )
-
-	return render(request,'accounts/edit.html',{"form":form})
+		if Join.objects.filter(user_id = request.user).exists():
+			join = Join.objects.get(user_id = request.user)
+			return render(request,'accounts/edit.html',{"form":form,"join":join})
+		else:
+			return render(request,'accounts/edit.html',{"form":form})
+	
 
 def editBusiness(request,businessId):
 	'''
