@@ -1,0 +1,49 @@
+{%extends 'base.html'%}
+{% block content%}
+	<div class="row container" style="padding-bottom:20px;">
+		
+			<div class="col-md-3" style="padding-top: 24px">
+				{% include 'partials/_sidebar.html' %}
+			</div>
+			<div class="col-md-7">
+				<h2><strong>{{hood.name}}</strong></h2>
+				<h4>County: <strong>{{hood.location}}</strong> Hood Population : <strong>{{hood.population}}</strong></h4>
+				<h4>{{hood.bio}}</h4>
+					
+				<a class="btn btn-sm btn-success" href="">Create Forum Post</a>
+				<a class="btn btn-sm btn-danger" href="">Exit Neighbourhood</a>
+				
+				<!-- Start of tabbed data -->				
+				<p>
+				<div>
+
+				  <!-- Nav tabs -->
+				  <ul class="nav nav-tabs" role="tablist">
+				    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Forum</a></li>
+				    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Hood Businesses</a></li>
+
+
+				  </ul>
+
+				  <!-- Tab panes -->
+				  <div class="tab-content">
+				    <div role="tabpanel" class="tab-pane active" id="home">Home</div>
+				    <div role="tabpanel" class="tab-pane" id="profile">Hood Politics</div>
+			
+				  </div>
+
+				</div>
+				</p>
+					
+			</div>
+			<div class="col-md-2"></div>
+		
+	</div>
+	<div class="row">
+		
+	</div>
+
+
+{%endblock%}
+
+

@@ -14,4 +14,5 @@ urlpatterns=[
     url(r'^editBusiness/(\d+)',views.editBusiness,name = 'editBusiness'),
     url(r'^search/$',views.search,name= 'search'),
     url(r'^join/(\d+)',views.join,name = 'joinHood'),
+    url(r'^Hood-Home/(\d+)',views.hoodHome,name = 'hoodHome'),
 ]

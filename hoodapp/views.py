@@ -144,4 +144,11 @@ def join(request,hoodId):
 
 		Join(user_id=request.user,hood_id = neighbourhood).save()
 
-	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	return redirect('hoodHome',hoodId)
+
+def hoodHome(request,hoodId):
+	'''
+	This functin will retrive instances of a neighbourhood
+	'''
+	hood = Neighbourhood.objects.get(pk = hoodId)
+	return render(request,'hood/index.html',{"hood":hood})
