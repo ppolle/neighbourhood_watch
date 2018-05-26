@@ -202,5 +202,32 @@ def singlePost(request,postId):
 	'''
 	This view function will retrieve a single instance of a forum post
 	'''
-	post = Posts.objects.get(id = postId)
-	return render(request,'posts/single.html',{"post":post})
+	if Join.objects.filter(user_id = request.user).exists():
+		post = Posts.objects.get(id = postId)
+		return render(request,'posts/single.html',{"post":post})
+	else:
+		messages.error(request,'Join a neighbourhood to view this post')
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def editPost(request,postId):
+	'''
+	This view function will edit a single post instance
+	'''
+	if Join.objects.filter(user_id = request.user).exists():
+
+		post = Posts.objects.get(id = postId)
+		if request.method == 'POST':
+			form = ForumPostForm(request.POST,instance = post)
+			if form.is_valid():
+				post = form.save(commit = False)
+				post.user = request.user
+				post.hood = request.user.join.hood_id
+				post.save()
+				messages.success(request,'Succesfully edited your post')
+				return redirect('singlePost',postId)
+		else:
+			form = ForumPostForm(instance = post)
+			return render(request,'posts/edit.html',{"form":form,"post":post})
+	else:
+		messages.error(request,'Join a neighbourhood to edit this post')
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
