@@ -198,3 +198,9 @@ def createPost(request):
 		messages.error(request, 'Error! You can only create a forum post after Joining/Creating a neighbourhood')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def singlePost(request,postId):
+	'''
+	This view function will retrieve a single instance of a forum post
+	'''
+	post = Posts.objects.get(id = postId)
+	return render(request,'posts/single.html',{"post":post})

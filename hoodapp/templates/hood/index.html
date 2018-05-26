@@ -11,7 +11,7 @@
 				<h4>County: <strong>{{hood.location.capitalize}}</strong> Hood Population : <strong>{{hood.population}}</strong></h4>
 				<h4>{{hood.bio}}</h4>
 					
-				<a class="btn btn-sm btn-success" href="">Create Forum Post</a>
+				<a class="btn btn-sm btn-success" href="{% url 'createPost' %}">Create Forum Post</a>
 				<a class="btn btn-sm btn-danger" href="{% url 'exitHood' hood.id %}">Exit Neighbourhood</a>
 				
 				<!-- Start of tabbed data -->				
@@ -33,7 +33,7 @@
 				    	<div class="row">
 				    		{% for post in posts %}
 				    			<div class="col-md-4">
-				    				<a href="">{{post.title}}</a>
+				    				<a href="{% url 'singlePost' post.id %}">{{post.title}}</a>
 				    				
 				    			</div>
 
