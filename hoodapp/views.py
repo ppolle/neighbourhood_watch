@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm,ForumPostForm
-from .models import Neighbourhood,Business,Profile,Join,Posts
+from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm,ForumPostForm,CommentForm
+from .models import Neighbourhood,Business,Profile,Join,Posts,Comments
 from django.contrib import messages
 
 # Create your views here.
@@ -204,7 +204,20 @@ def singlePost(request,postId):
 	'''
 	if Join.objects.filter(user_id = request.user).exists():
 		post = Posts.objects.get(id = postId)
-		return render(request,'posts/single.html',{"post":post})
+		comments = Comments.objects.filter(post = postId)
+		if request.method == 'POST':
+			form = CommentForm(request.POST)
+			if form.is_valid():
+				comment = form.save(commit = False)
+				comment.user = request.user
+				comment.post = post
+				comment.save()
+
+				messages.success(request,'You have succesfully commented on this post')
+				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+		else:
+			form = CommentForm()
+		return render(request,'posts/single.html',{"post":post,"form":form,"comments":comments})
 	else:
 		messages.error(request,'Join a neighbourhood to view this post')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

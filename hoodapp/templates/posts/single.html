@@ -25,7 +25,26 @@
 				
 			
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-2">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Comments
+					</div>
+					<div class="panel-body">
+						<form action = "{% url 'singlePost' post.id %}" method = "post">
+							{%csrf_token%}
+							{% bootstrap_form form %}
+							<button type="submit" class="btn btn-default btn-sm">Comment</button>
+							
+						</form>
+						{% for comment in comments %}
+						<div class="row container">
+							<strong>{{comment.user.first_name.capitalize}}</strong>: {{comment.comment}}
+						</div>
+						{%endfor%}
+					</div>
+				</div>
+			</div>
 		
 </div>
 
