@@ -3,7 +3,7 @@ from django.http  import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm,ForumPostForm
-from .models import Neighbourhood,Business,Profile,Join
+from .models import Neighbourhood,Business,Profile,Join,Posts
 from django.contrib import messages
 
 # Create your views here.
@@ -45,12 +45,7 @@ def createHood(request):
 
 	else:
 		form = CreateHoodForm()
-		if Join.objects.filter(user_id = request.user).exists():
-			join = Join.objects.get(user_id = request.user)
-			return render(request,'hood/create.html',{"form":form,"join":join})
-		else:
-			return render(request,'hood/create.html',{"form":form})
-
+		return render(request,'hood/create.html',{"form":form})
 def editHood(request,hood_id):
 	'''
 	This view function will edit an instance of a neighbourhood
@@ -65,11 +60,7 @@ def editHood(request,hood_id):
 			return redirect('index')
 	else:
 		form = CreateHoodForm(instance = neighbourhood)
-		if Join.objects.filter(user_id = request.user).exists():
-			join = Join.objects.get(user_id = request.user)
-			return render(request,'hood/edit.html',{"form":form,"join":join,"neighbourhood":neighbourhood})
-		else:
-			return render(request,'hood/edit.html',{"form":form,"neighbourhood":neighbourhood})
+		return render(request,'hood/edit.html',{"form":form,"neighbourhood":neighbourhood})
 
 def createBusiness(request):
 	'''
@@ -107,11 +98,7 @@ def profile(request):
 	This view function will fetch a user's profile
 	'''
 	profile = Profile.objects.get(user = request.user)
-	if Join.objects.filter(user_id = request.user).exists():
-		join = Join.objects.get(user_id = request.user)
-		return render(request,'accounts/profile.html',{"profile":profile,"join":join})
-	else:
-		return render(request,'accounts/profile.html',{"profile":profile})
+	return render(request,'accounts/profile.html',{"profile":profile})
 	
 
 def editProfile(request):
@@ -127,11 +114,7 @@ def editProfile(request):
 			return redirect('profile')
 	else:
 		form = EditprofileForm(instance = profile )
-		if Join.objects.filter(user_id = request.user).exists():
-			join = Join.objects.get(user_id = request.user)
-			return render(request,'accounts/edit.html',{"form":form,"join":join})
-		else:
-			return render(request,'accounts/edit.html',{"form":form})
+		return render(request,'accounts/edit.html',{"form":form})
 	
 
 def editBusiness(request,businessId):
@@ -179,11 +162,12 @@ def join(request,hoodId):
 
 def hoodHome(request,hoodId):
 	'''
-	This functin will retrive instances of a neighbourhood
+	This function will retrive instances of a neighbourhood
 	'''
 	hood = Neighbourhood.objects.get(pk = hoodId)
+	posts = Posts.objects.filter(hood = hoodId)
 	businesses = Business.objects.filter(hood = hoodId)
-	return render(request,'hood/index.html',{"hood":hood,"businesses":businesses})
+	return render(request,'hood/index.html',{"hood":hood,"businesses":businesses,"posts":posts})
 def exitHood(request,hoodId):
 	'''
 	This function will delete a neighbourhood instance in the join table
@@ -213,3 +197,4 @@ def createPost(request):
 	else:
 		messages.error(request, 'Error! You can only create a forum post after Joining/Creating a neighbourhood')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
