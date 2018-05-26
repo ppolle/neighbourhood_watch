@@ -68,6 +68,15 @@ class Posts(models.Model):
 
 	def __str__(self):
 		return self.title
+class Comments(models.Model):
+	'''
+	Model will handle comments made to a post resource
+	'''
+	comment = models.CharField(max_length = 600)
+	user = models.ForeignKey(User)
+	post = models.ForeignKey(Posts)
 
+	def __str__(self):
+		return self.comment
 
 
