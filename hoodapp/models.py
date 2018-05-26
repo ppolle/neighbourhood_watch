@@ -57,5 +57,17 @@ class Join(models.Model):
 	def __str__(self):
 		return self.user_id
 
+class Posts(models.Model):
+	'''
+	Model that handles posts made to a neighbourhood
+	'''
+	title = models.CharField(max_length = 300)
+	body = models.TextField()
+	user = models.ForeignKey(User)
+	hood = models.ForeignKey(Neighbourhood)
+
+	def __str__(self):
+		return self.title
+
 
 
