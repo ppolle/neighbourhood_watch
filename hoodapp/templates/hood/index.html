@@ -6,6 +6,7 @@
 				{% include 'partials/_sidebar.html' %}
 			</div>
 			<div class="col-md-7">
+				{% include 'partials/_errors.html' %}
 				<h2><strong>{{hood.name.capitalize}}</strong></h2>
 				<h4>County: <strong>{{hood.location.capitalize}}</strong> Hood Population : <strong>{{hood.population}}</strong></h4>
 				<h4>{{hood.bio}}</h4>
@@ -26,7 +27,7 @@
 				  </ul>
 
 				  <!-- Tab panes -->
-				  <div class="tab-content">
+				  <div class="tab-content" style="padding-top:20px">
 				    <div role="tabpanel" class="tab-pane active" id="home">Home</div>
 				    <div role="tabpanel" class="tab-pane" id="profile">
 				    	<div class="row">

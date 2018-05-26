@@ -26,6 +26,7 @@ def signup(request):
 			raw_password = form.cleaned_data.get('password1')
 			user = authenticate(username=username, password=raw_password)
 			login(request, user)
+			messages.success(request, 'Success! Signup was a success, now join or create a neighbourhood to start using Kaa Rada')
 			return redirect('index')
 	else:
 		form = SignUpForm()
@@ -39,7 +40,7 @@ def createHood(request):
 		form = CreateHoodForm(request.POST)
 		if form.is_valid():
 			form.save()
-			messages.success(request, 'You Have succesfully created a hood.')
+			messages.success(request, 'You Have succesfully created a hood.You may now join your neighbourhood')
 			return redirect('index')
 
 	else:
@@ -59,6 +60,7 @@ def editHood(request,hood_id):
 		form = CreateHoodForm(request.POST,instance = neighbourhood)
 		if form.is_valid():
 			form.save()
+			messages.success(request, 'Success! You Have succesfully edited your hood')
 			
 			return redirect('index')
 	else:
@@ -85,6 +87,7 @@ def createBusiness(request):
 				business.user = request.user
 				business.hood = neighbourhood
 				business.save()
+				messages.success(request, 'Success! You have created a business')
 				return redirect('allBusinesses')
 		else:
 			form = CreateBusinessForm()
@@ -125,6 +128,7 @@ def editProfile(request):
 		form = EditprofileForm(request.POST,instance = profile )
 		if form.is_valid():
 			form.save()
+			messages.success(request, 'Successful profile edit!')
 			return redirect('profile')
 	else:
 		form = EditprofileForm(instance = profile )
@@ -169,10 +173,10 @@ def join(request,hoodId):
 	'''
 	neighbourhood = Neighbourhood.objects.get(pk = hoodId)
 	if Join.objects.filter(user_id = request.user).exists():
-		
+		messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
 		Join.objects.filter(user_id = request.user).update(hood_id = neighbourhood)
 	else:
-
+		messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
 		Join(user_id=request.user,hood_id = neighbourhood).save()
 
 	return redirect('hoodHome',hoodId)
@@ -190,5 +194,5 @@ def exitHood(request,hoodId):
 	'''
 	if Join.objects.filter(user_id = request.user).exists():
 		Join.objects.get(user_id = request.user).delete()
-
+		messages.error(request, 'You have succesfully exited this Neighbourhood.')
 		return redirect('index')
