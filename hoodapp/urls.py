@@ -16,4 +16,5 @@ urlpatterns=[
     url(r'^join/(\d+)',views.join,name = 'joinHood'),
     url(r'^Hood-Home/(\d+)',views.hoodHome,name = 'hoodHome'),
     url(r'^exitHood/(\d+)',views.exitHood,name = 'exitHood'),
+    url (r'^createPost/$',views.createPost,name = 'createPost'),
 ]

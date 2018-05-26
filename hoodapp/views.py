@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http  import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm
+from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm,ForumPostForm
 from .models import Neighbourhood,Business,Profile,Join
 from django.contrib import messages
 
@@ -78,24 +78,19 @@ def createBusiness(request):
 	if Join.objects.filter(user_id = request.user).exists():
 
 		if request.method == 'POST':
-			join = Join.objects.get(user_id = request.user)
-			neighbourhood = Neighbourhood.objects.get(id = join.hood_id.id)
-
+			
 			form = CreateBusinessForm(request.POST)
 			if form.is_valid():
 				business = form.save(commit = False)
 				business.user = request.user
-				business.hood = neighbourhood
+				business.hood = request.user.join.hood_id
 				business.save()
 				messages.success(request, 'Success! You have created a business')
 				return redirect('allBusinesses')
 		else:
 			form = CreateBusinessForm()
-			if Join.objects.filter(user_id = request.user).exists():
-				join = Join.objects.get(user_id = request.user)
-				return render(request,'business/create.html',{"form":form,"join":join})
-			else:
-				return render(request,'business/create.html',{"form":form})
+			return render(request,'business/create.html',{"form":form})
+				
 	else:
 		messages.error(request, 'Error! Join a Neighbourhood to create a Business')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -173,12 +168,13 @@ def join(request,hoodId):
 	'''
 	neighbourhood = Neighbourhood.objects.get(pk = hoodId)
 	if Join.objects.filter(user_id = request.user).exists():
-		messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
+		
 		Join.objects.filter(user_id = request.user).update(hood_id = neighbourhood)
 	else:
-		messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
+		
 		Join(user_id=request.user,hood_id = neighbourhood).save()
 
+	messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
 	return redirect('hoodHome',hoodId)
 
 def hoodHome(request,hoodId):
@@ -196,3 +192,24 @@ def exitHood(request,hoodId):
 		Join.objects.get(user_id = request.user).delete()
 		messages.error(request, 'You have succesfully exited this Neighbourhood.')
 		return redirect('index')
+
+def createPost(request):
+	'''
+	This function will create a Posts instance
+	'''
+	if Join.objects.filter(user_id = request.user).exists():
+		if request.method == 'POST':
+			form = ForumPostForm(request.POST)
+			if form.is_valid():
+				post = form.save(commit = False)
+				post.user = request.user
+				post.hood = request.user.join.hood_id
+				post.save()
+				messages.success(request,'You have succesfully created a Forum Post')
+				return redirect('index')
+		else:
+			form = ForumPostForm()
+			return render(request,'posts/create.html',{"form":form})
+	else:
+		messages.error(request, 'Error! You can only create a forum post after Joining/Creating a neighbourhood')
+		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

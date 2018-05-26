@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Neighbourhood,Business,Profile
+from .models import Neighbourhood,Business,Profile,Posts
 
 
 class SignUpForm(UserCreationForm):
@@ -28,6 +28,11 @@ class EditprofileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
 		fields = ['bio']
+
+class ForumPostForm(forms.ModelForm):
+	class Meta:
+		model = Posts
+		fields = ['title','body']
 
 
 
