@@ -1,4 +1,5 @@
 {%extends 'base.html'%}
+{%load bootstrap3 %}
 {% block content%}
 	<div class="row container" style="padding-bottom:20px;">
 		
@@ -33,7 +34,7 @@
 				    	<div class="row">
 				    		{% for post in posts %}
 				    			<div class="col-md-4">
-				    				<a href="{% url 'singlePost' post.id %}">{{post.title}}</a>
+				    				<a href="{% url 'singlePost' post.id %}">{{post.title.capitalize}}</a>
 				    				
 				    			</div>
 
@@ -54,12 +55,13 @@
 										<div class="panel panel-default">
 											
 											<div class="panel-heading">
-												{{biz.name}}
+												{{biz.name.capitalize}}
 											</div>
 											<div class="panel-body">
-												<p>{{biz.description}}</p>
-												
+												<p>{{biz.description.capitalize}}</p>
+												{%if biz.user == user%}
 												<a href="{% url 'editBusiness' biz.id %}" class="btn btn-sm btn-primary">Edit</a>
+												{%endif%}
 												
 											</div>
 											

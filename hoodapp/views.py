@@ -109,7 +109,7 @@ def businessIndex(request):
 	'''
 	This post will fetch all business instances belonging to the current logged in user
 	'''
-	businesses= Business.objects.all()@login_required(login_url='/accounts/login/')
+	businesses= Business.objects.filter(user = request.user)
 	return render(request,'business/index.html',{"businesses":businesses})
 
 @login_required(login_url='/accounts/login/')
@@ -270,3 +270,9 @@ def editPost(request,postId):
 	else:
 		messages.error(request,'Join a neighbourhood to edit this post')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+def changeHood(request):
+	'''
+	View function to retrieve hood resources incase a user wants to change their current neighbourhood
+	'''
+	neighbourhoods = Neighbourhood.objects.all()
+	return render(request,'hood/joinhood.html',{"neighbourhoods":neighbourhoods})

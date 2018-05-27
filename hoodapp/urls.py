@@ -19,4 +19,5 @@ urlpatterns=[
     url(r'^createPost/$',views.createPost,name = 'createPost'),
     url(r'^singlePost/(\d+)',views.singlePost,name = 'singlePost'),
     url(r'^editPost/(\d+)',views.editPost,name = 'editPost'),
+    url(r'^changeHood/$',views.changeHood,name='changeHood'),
 ]
