@@ -38,12 +38,19 @@
                    <li>
                     <a href="{% url 'profile' %}">Profile</a>
                   </li>
+                  {% if user.join.hood_id.id %}
+                  <li>
+                    <a href="{% url 'index' %}">Change Hood</a>
+                  </li>
+                  {%else%}
+                  <li>
+                    <a href="{% url 'index' %}">Join Hood</a>
+                  </li>
+                  {%endif%}
                   <li>
                     <a href="{% url 'allBusinesses' %}">My Businesses</a>
                   </li>
-                   <li>
-                    <a href="{% url 'createHood' %}">Create Hood</a>
-                  </li>
+                   
                   <li>
                     <a href="/accounts/password/change">Change Password</a>
                   </li>

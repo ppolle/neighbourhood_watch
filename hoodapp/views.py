@@ -11,8 +11,14 @@ def index(request):
 	'''
 	This view function will render the index  landing page
 	'''
-	neighbourhoods = Neighbourhood.objects.all()
-	return render(request,'index.html',{"neighbourhoods":neighbourhoods})
+	if Join.objects.filter(user_id = request.user).exists():
+		hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
+		posts = Posts.objects.filter(hood = request.user.join.hood_id.id)
+		businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
+		return render(request,'hood/index.html',{"hood":hood,"businesses":businesses,"posts":posts})
+	else:
+		neighbourhoods = Neighbourhood.objects.all()
+		return render(request,'index.html',{"neighbourhoods":neighbourhoods})
 
 def signup(request):
 	'''

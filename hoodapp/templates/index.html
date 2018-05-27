@@ -1,9 +1,18 @@
 {%extends 'base.html'%}
 {%block content%}
-<h1 class="text-center">Kaa rada Home Page</h1>
 
+
+<h1 class="text-center">Kaa rada Home Page</h1>
+ 
 <div class="container">
 	{% include 'partials/_errors.html' %}
+	  <form  class="" action="{% url 'search' %}">
+	    <div class="form-group">
+	      <input type="text" class="form-control" placeholder="Search Neighbourhood" name = "search">
+	       <button type="submit" class="btn btn-default">Submit</button>
+	    </div>
+	   
+	  </form>
 		
 	<div class="row">
 
@@ -26,7 +35,7 @@
 				
 
 			</div>
-			</div>
+		</div>
 		{%endfor%}
 				
 	
