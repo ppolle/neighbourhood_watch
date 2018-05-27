@@ -15,12 +15,12 @@
 					<div class="panel panel-default">
 						
 						<div class="panel-heading">
-							{{hood.name}}
+							{{hood.name.capitalize}}
 						</div>
 						<div class="panel-body">
-							<p>{{hood.description}}</p>
+							<p>{{hood.description.capitalize}}</p>
 							
-							<a href="{% url 'editHood' hood.id %}" class="btn btn-sm btn-primary">Edit</a>
+							
 							<a href="{% url 'joinHood' hood.id %}" class="btn btn-sm btn-success">Join</a>
 						</div>				
 

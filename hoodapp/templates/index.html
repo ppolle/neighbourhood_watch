@@ -2,9 +2,10 @@
 {%block content%}
 
 
-<h1 class="text-center">Kaa rada Home Page</h1>
+
  
 <div class="container">
+	<h4>Welcome to kaa Rada. Start using Kaa Rada by joining a neighbourhood. if you neighbourhood doesn't yet exist, create one <a href="{% url 'createHood' %}">here</a></h4>
 	{% include 'partials/_errors.html' %}
 	  <form  class="" action="{% url 'search' %}">
 	    <div class="form-group">
@@ -25,10 +26,10 @@
 			<div class="panel panel-default">
 				
 				<div class="panel-heading">
-					{{hood.name}}
+					{{hood.name.capitalize}}
 				</div>
 				<div class="panel-body">
-					<p>{{hood.description}}</p>
+					<p>{{hood.description.capitalize}}</p>
 					
 					
 					<a href="{% url 'joinHood' hood.id %}" class="btn btn-sm btn-success">Join</a>

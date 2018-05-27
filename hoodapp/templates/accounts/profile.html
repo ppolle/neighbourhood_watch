@@ -12,7 +12,7 @@
 				{% include 'partials/_errors.html' %}
 				<h2><strong>{{profile.user}}</strong></h2>
 			
-				<h4><strong></strong> Post <strong></strong> Follower <strong>{{following}}</strong> Following</h4>
+				<h4><strong></strong> County: <strong>{{user.join.hood_id.location.capitalize}}</strong> Neighbourhood: <strong>{{user.join.hood_id.name.capitalize}}</strong></h4>
 				<h4>{{profile.bio}}</h4>
 					{%if profile.user.id == user.id%}
 						<a class="btn btn-sm btn-success" href="">Create Post</a>

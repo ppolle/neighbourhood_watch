@@ -44,6 +44,8 @@ def signup(request):
 		form = SignUpForm()
 	return render(request, 'registration/signup.html', {'form': form})
 
+
+@login_required(login_url='/accounts/login/')
 def createHood(request):
 	'''
 	This view function will create an instance of a neighbourhood
@@ -58,6 +60,8 @@ def createHood(request):
 	else:
 		form = CreateHoodForm()
 		return render(request,'hood/create.html',{"form":form})
+
+@login_required(login_url='/accounts/login/')
 def editHood(request,hood_id):
 	'''
 	This view function will edit an instance of a neighbourhood
@@ -74,6 +78,7 @@ def editHood(request,hood_id):
 		form = CreateHoodForm(instance = neighbourhood)
 		return render(request,'hood/edit.html',{"form":form,"neighbourhood":neighbourhood})
 
+@login_required(login_url='/accounts/login/')
 def createBusiness(request):
 	'''
 	This function will create a Business Instance
@@ -95,16 +100,19 @@ def createBusiness(request):
 			return render(request,'business/create.html',{"form":form})
 				
 	else:
+
 		messages.error(request, 'Error! Join a Neighbourhood to create a Business')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='/accounts/login/')
 def businessIndex(request):
 	'''
 	This post will fetch all business instances belonging to the current logged in user
 	'''
-	businesses= Business.objects.all()
+	businesses= Business.objects.all()@login_required(login_url='/accounts/login/')
 	return render(request,'business/index.html',{"businesses":businesses})
 
+@login_required(login_url='/accounts/login/')
 def profile(request):
 	'''
 	This view function will fetch a user's profile
@@ -112,7 +120,7 @@ def profile(request):
 	profile = Profile.objects.get(user = request.user)
 	return render(request,'accounts/profile.html',{"profile":profile})
 	
-
+@login_required(login_url='/accounts/login/')
 def editProfile(request):
 	'''
 	This view function will edit a profile instance
@@ -128,7 +136,7 @@ def editProfile(request):
 		form = EditprofileForm(instance = profile )
 		return render(request,'accounts/edit.html',{"form":form})
 	
-
+@login_required(login_url='/accounts/login/')
 def editBusiness(request,businessId):
 	'''
 	This view function will edit an instance of a Business
@@ -158,7 +166,6 @@ def search(request):
 		return render(request,'hood/search.html',{"message":message})
 
 @login_required(login_url='/accounts/login/')
-
 def join(request,hoodId):
 	'''
 	This view function will implement adding 
@@ -182,6 +189,8 @@ def hoodHome(request,hoodId):
 	posts = Posts.objects.filter(hood = hoodId)
 	businesses = Business.objects.filter(hood = hoodId)
 	return render(request,'hood/myhood.html',{"hood":hood,"businesses":businesses,"posts":posts})
+
+@login_required(login_url='/accounts/login/')
 def exitHood(request,hoodId):
 	'''
 	This function will delete a neighbourhood instance in the join table
@@ -191,6 +200,7 @@ def exitHood(request,hoodId):
 		messages.error(request, 'You have succesfully exited this Neighbourhood.')
 		return redirect('index')
 
+@login_required(login_url='/accounts/login/')
 def createPost(request):
 	'''
 	This function will create a Posts instance
@@ -212,6 +222,7 @@ def createPost(request):
 		messages.error(request, 'Error! You can only create a forum post after Joining/Creating a neighbourhood')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='/accounts/login/')
 def singlePost(request,postId):
 	'''
 	This view function will retrieve a single instance of a forum post
@@ -236,6 +247,7 @@ def singlePost(request,postId):
 		messages.error(request,'Join a neighbourhood to view this post')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+@login_required(login_url='/accounts/login/')
 def editPost(request,postId):
 	'''
 	This view function will edit a single post instance
