@@ -270,6 +270,7 @@ def editPost(request,postId):
 	else:
 		messages.error(request,'Join a neighbourhood to edit this post')
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 def changeHood(request):
 	'''
 	View function to retrieve hood resources incase a user wants to change their current neighbourhood

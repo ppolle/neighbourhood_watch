@@ -4,7 +4,10 @@
 	<div class="row container" style="padding-bottom:20px;">
 		
 			<div class="col-md-3" style="padding-top: 24px">
-				{% include 'partials/_sidebar.html' %}
+				{%if user.join%}
+					{% include 'partials/_sidebar.html' %}
+				{%endif%}
+
 			</div>
 			<div class="col-md-8">
 				{% include 'partials/_errors.html' %}
@@ -33,10 +36,20 @@
 				    	{%if posts%}
 				    	<div class="row">
 				    		{% for post in posts %}
-				    			<div class="col-md-4">
-				    				<a href="{% url 'singlePost' post.id %}">{{post.title.capitalize}}</a>
-				    				
-				    			</div>
+				    		<div class="panel panel-default">
+							  <div class="panel-body">
+							  	<div class="col-md-2">
+							  		{{post.user.first_name.capitalize}} {{post.user.last_name.capitalize}}
+							  	</div>
+							  	<div class="col-md-7">
+							  		<strong><a href="{% url 'singlePost' post.id %}">{{post.title.capitalize}}</a></strong>
+							  	</div>
+							  	<div class="col-md-3">
+							  		{{post.}}
+							  	</div>
+							    
+							  </div>
+							</div>
 
 				    		{% endfor %}
 				    		

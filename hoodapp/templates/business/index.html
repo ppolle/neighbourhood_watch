@@ -1,34 +1,46 @@
 {%extends 'base.html'%}
 {%block content%}
-<h1 class="text-center">View all your Businesses</h1>
-<div class="container">
-	{% include 'partials/_errors.html' %}
-	<div class="row">
-		
-	
-		{%for biz in businesses%}
-		<div class="col-md-4">
-			<div class="panel panel-default">
-				
-				<div class="panel-heading">
-					{{biz.name}}
-				</div>
-				<div class="panel-body">
-					<p>{{biz.description}}</p>
-					
-					<a href="{% url 'editBusiness' biz.id %}" class="btn btn-sm btn-primary">Edit</a>
-					<a href="#" class="btn btn-sm btn-success">Join</a>
-				</div>
-				
-				
 
+<div class="row container" style="padding-bottom:20px">
+		
+			<div class="col-md-3" style="padding-top: 24px">
+				{%if user.join%}
+					{% include 'partials/_sidebar.html' %}
+				{%endif%}
 			</div>
-		</div>
-		{%endfor%}
+			<div class="col-md-9">
+				<h3 >View all your Businesses</h3>
+							{% include 'partials/_errors.html' %}
+				<div class="row">
+					
 				
-	
-</div>
-</div>
+					{%for biz in businesses%}
+					<div class="col-md-6">
+						<div class="panel panel-default">
+							
+							<div class="panel-heading">
+								{{biz.name.capitalize}}
+							</div>
+							<div class="panel-body">
+								<p>{{biz.description.capitalize}}</p>
+								
+								<a href="{% url 'editBusiness' biz.id %}" class="btn btn-sm btn-primary">Edit</a>
+								<a href="#" class="btn btn-sm btn-danger">Delete</a>
+							</div>
+							
+							
+
+						</div>
+					</div>
+					{%endfor%}
+							
+				
+			</div>
+			
+			</div>
+			
+		
+	</div>
 
 
 {%endblock%}
