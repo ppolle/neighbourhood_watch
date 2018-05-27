@@ -5,20 +5,26 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm,CreateHoodForm,CreateBusinessForm,EditprofileForm,ForumPostForm,CommentForm
 from .models import Neighbourhood,Business,Profile,Join,Posts,Comments
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
 	'''
 	This view function will render the index  landing page
 	'''
-	if Join.objects.filter(user_id = request.user).exists():
-		hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
-		posts = Posts.objects.filter(hood = request.user.join.hood_id.id)
-		businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
-		return render(request,'hood/index.html',{"hood":hood,"businesses":businesses,"posts":posts})
+	if request.user.is_authenticated:
+		if Join.objects.filter(user_id = request.user).exists():
+			hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
+			posts = Posts.objects.filter(hood = request.user.join.hood_id.id)
+			businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
+			return render(request,'hood/myhood.html',{"hood":hood,"businesses":businesses,"posts":posts})
+		else:
+			neighbourhoods = Neighbourhood.objects.all()
+			return render(request,'index.html',{"neighbourhoods":neighbourhoods})
 	else:
 		neighbourhoods = Neighbourhood.objects.all()
 		return render(request,'index.html',{"neighbourhoods":neighbourhoods})
+
 
 def signup(request):
 	'''
@@ -151,6 +157,8 @@ def search(request):
 		message = "You Haven't searched for any item"
 		return render(request,'hood/search.html',{"message":message})
 
+@login_required(login_url='/accounts/login/')
+
 def join(request,hoodId):
 	'''
 	This view function will implement adding 
@@ -164,7 +172,7 @@ def join(request,hoodId):
 		Join(user_id=request.user,hood_id = neighbourhood).save()
 
 	messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
-	return redirect('hoodHome',hoodId)
+	return redirect('index')
 
 def hoodHome(request,hoodId):
 	'''
@@ -173,7 +181,7 @@ def hoodHome(request,hoodId):
 	hood = Neighbourhood.objects.get(pk = hoodId)
 	posts = Posts.objects.filter(hood = hoodId)
 	businesses = Business.objects.filter(hood = hoodId)
-	return render(request,'hood/index.html',{"hood":hood,"businesses":businesses,"posts":posts})
+	return render(request,'hood/myhood.html',{"hood":hood,"businesses":businesses,"posts":posts})
 def exitHood(request,hoodId):
 	'''
 	This function will delete a neighbourhood instance in the join table
