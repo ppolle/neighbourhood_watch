@@ -13,7 +13,7 @@
 							{% include 'partials/_errors.html' %}
 				
 					
-				
+				{% if myPosts %}
 					{%for post in myPosts%}
 					<div class="row">
 						<div class="panel panel-default">
@@ -31,6 +31,9 @@
 						</div>
 					</div>
 					{%endfor%}
+				{%else%}
+						<h4>You havent created any forum posts yet. You can create one <a href="{% url 'createPost' %}">here</a> </h4>
+				{%endif%}
 							
 			
 			

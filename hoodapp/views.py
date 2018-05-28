@@ -188,10 +188,8 @@ def hoodHome(request):
 	'''
 	This function will retrive instances of a neighbourhood
 	'''
-	hood = Neighbourhood.objects.get(pk = hoodId)
-	posts = Posts.objects.filter(hood = hoodId)
-	businesses = Business.objects.filter(hood = hoodId)
-	return render(request,'hood/myhood.html',{"hood":hood,"businesses":businesses,"posts":posts})
+	hoods = Neighbourhood.objects.filter(user = request.user)
+	return render(request,'hood/index.html',{"hoods":hoods})
 
 @login_required(login_url='/accounts/login/')
 def exitHood(request,hoodId):

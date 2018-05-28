@@ -29,7 +29,7 @@
       <a href="#" class="list-group-item dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">NeighbourHoods <span class="caret"></span></a>  
       <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <li><a href="{% url 'index'%}">My Hood</a></li>
-        <li><a href="#">My Neighbourhoods</a></li>
+        <li><a href="{% url 'myHood' %}">My Neighbourhoods</a></li>
         <li><a href="{% url 'createHood' %}">Create Neighbourhoods</a></li>
         
         <li><a href="{% url 'changeHood' %}">Change neighbourhoods</a></li>
