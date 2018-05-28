@@ -322,3 +322,12 @@ def searchBusiness(request):
 		hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
 		posts = Posts.objects.filter(hood = request.user.join.hood_id.id)
 		return render(request,'business/search.html',{"message":message,"hood":hood,"posts":posts})
+
+def deletePost(request,postId):
+	'''
+	View function that functions to delete a post instance
+	'''
+	Posts.objects.filter(pk = postId).delete()
+	messages.error(request,'Succesfully Deleted a Post Resource ')
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+

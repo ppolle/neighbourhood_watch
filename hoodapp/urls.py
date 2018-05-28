@@ -22,6 +22,6 @@ urlpatterns=[
     url(r'^changeHood/$',views.changeHood,name='changeHood'),
     url(r'^myPosts/$',views.myPosts,name = 'myPosts'),
     url(r'^searchForum/$',views.searchForum,name = 'searchForum'),
-    url(r'^searchBusiness/$',views.searchBusiness,name = 'searchBusiness')
-
+    url(r'^searchBusiness/$',views.searchBusiness,name = 'searchBusiness'),
+    url(r'^deletePost/(\d+)',views.deletePost,name = 'deletePost'),
 ]

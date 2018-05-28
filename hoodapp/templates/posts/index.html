@@ -23,7 +23,7 @@
 								<p>{{post.title.capitalize}}</p>
 								
 								<a href="{% url 'editPost' post.id %}" class="btn btn-sm btn-primary">Edit</a>
-								<a href="#" class="btn btn-sm btn-danger">Delete</a>
+								<a href="{% url 'deletePost' post.id %}" class="btn btn-sm btn-danger">Delete</a>
 							</div>
 							
 							
