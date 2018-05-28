@@ -14,11 +14,13 @@ urlpatterns=[
     url(r'^editBusiness/(\d+)',views.editBusiness,name = 'editBusiness'),
     url(r'^search/$',views.search,name= 'search'),
     url(r'^join/(\d+)',views.join,name = 'joinHood'),
-    url(r'^Hood-Home/(\d+)',views.hoodHome,name = 'hoodHome'),
+    url(r'^myHoods/$',views.hoodHome,name = 'myHood'),
     url(r'^exitHood/(\d+)',views.exitHood,name = 'exitHood'),
     url(r'^createPost/$',views.createPost,name = 'createPost'),
     url(r'^singlePost/(\d+)',views.singlePost,name = 'singlePost'),
     url(r'^editPost/(\d+)',views.editPost,name = 'editPost'),
     url(r'^changeHood/$',views.changeHood,name='changeHood'),
     url(r'^myPosts/$',views.myPosts,name = 'myPosts'),
+    url(r'^searchForum',views.searchForum,name = 'searchForum'),
+
 ]

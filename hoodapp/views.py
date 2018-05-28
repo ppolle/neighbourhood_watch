@@ -161,6 +161,7 @@ def search(request):
 		message = f"{search_term}"
 
 		return render(request,'hood/search.html',{"message":message,"hoods":hoods})
+
 	else:
 		message = "You Haven't searched for any item"
 		return render(request,'hood/search.html',{"message":message})
@@ -181,7 +182,7 @@ def join(request,hoodId):
 	messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
 	return redirect('index')
 
-def hoodHome(request,hoodId):
+def hoodHome(request):
 	'''
 	This function will retrive instances of a neighbourhood
 	'''
@@ -284,3 +285,20 @@ def myPosts(request):
 	'''
 	myPosts = Posts.objects.filter(user = request.user)
 	return render(request,'posts/index.html',{"myPosts":myPosts})
+
+def searchForum(request):
+	'''
+	View function to retrieve searched forum posts
+	'''
+	if request.GET['searchForum']:
+		search_term = request.GET.get("searchForum")
+		hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
+		posts = Posts.objects.filter(title__icontains = search_term)
+		businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
+
+		message = f"{search_term}"
+		return render(request,'posts/search.html',{"message":message,"posts":posts,"hood":hood,"businesses":businesses})
+
+	else:
+		message = "You Haven't searched for any item"
+		return render(request,'posts/search.html',{"message":message})

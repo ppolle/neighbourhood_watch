@@ -69,7 +69,20 @@
 				    	</div>
 
 				    	{% else %}
-				    	<h4 class="text-center">No Post has been created for this hood yet. Be the first to create on <a href="{% url 'createPost' %}">here</a></h4>
+				    	<div class="row">
+				    		<div class="col-md-7"></div>
+				    		<div class="col-md-5">
+				    			<form class="" class="" action="{% url 'searchForum' %}">
+						            <div class="form-group">
+						              <input type="text" class="form-control" placeholder="Search Forum" name = "searchForum">
+						            </div>
+						            
+						        </form>
+				    		</div>
+				    	</div>
+							<div class="panel-body">
+								<h4 class="text-center">No Forum Post with the title <strong>{{message}}</strong> exists!</h4>
+							</div>
 				    	{% endif %}
 				    </div>
 
