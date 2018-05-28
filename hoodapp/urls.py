@@ -21,6 +21,7 @@ urlpatterns=[
     url(r'^editPost/(\d+)',views.editPost,name = 'editPost'),
     url(r'^changeHood/$',views.changeHood,name='changeHood'),
     url(r'^myPosts/$',views.myPosts,name = 'myPosts'),
-    url(r'^searchForum',views.searchForum,name = 'searchForum'),
+    url(r'^searchForum/$',views.searchForum,name = 'searchForum'),
+    url(r'^searchBusiness/$',views.searchBusiness,name = 'searchBusiness')
 
 ]

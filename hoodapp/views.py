@@ -301,4 +301,25 @@ def searchForum(request):
 
 	else:
 		message = "You Haven't searched for any item"
-		return render(request,'posts/search.html',{"message":message})
+		hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
+		businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
+		return render(request,'posts/search.html',{"message":message,"businesses":businesses,"hood":hood})
+
+def searchBusiness(request):
+	'''
+	View function to retrive searches neighbourhood businesses
+	'''
+	if request.GET['searchBusiness']:
+		search_term = request.GET.get("searchBusiness")
+		hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
+		posts = Posts.objects.filter(title__icontains = search_term)
+		businesses = Business.objects.filter(name__icontains = search_term)
+		message = f"{search_term}"
+		return render(request,'business/search.html',{"message":message,"hood":hood,"businesses":businesses,"posts":posts})
+
+	else:
+		message = "You Haven't searched for any item"
+		hood = Neighbourhood.objects.get(pk = request.user.join.hood_id.id)
+		posts = Posts.objects.filter(title__icontains = search_term)
+		businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
+		return render(request,'business/search.html',{"message":message,"businesses":businesses,"hood":hood,"posts":posts})

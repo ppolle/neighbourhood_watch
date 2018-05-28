@@ -87,6 +87,17 @@
 				    </div>
 
 				    <div role="tabpanel" class="tab-pane" id="profile">
+				    	  <div class="row">
+						    		<div class="col-md-7"></div>
+						    		<div class="col-md-5">
+						    			<form class="" class="" action="{% url 'searchBusiness' %}">
+								            <div class="form-group">
+								              <input type="text" class="form-control" placeholder="Search Business" name = "searchBusiness">
+								            </div>
+								            
+								        </form>
+						    		</div>
+						    	</div>
 				    	<div class="row">
 				    		{% if businesses %}
 						     	{% for biz in businesses %}
