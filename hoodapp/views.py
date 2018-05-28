@@ -339,4 +339,13 @@ def deleteBusiness(request,bizId):
 	messages.error(request,'Succesfully Deleted a Business resource')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def deleteHood(request,hoodId):
+	'''
+	View function that deletes a single neighbourhood resource 
+	'''
+	Neighbourhood.objects.filter(pk = hoodId).delete()
+	messages.error(request,'Succesfully deleted a Neighbourhood Resource')
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 
