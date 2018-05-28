@@ -24,4 +24,5 @@ urlpatterns=[
     url(r'^searchForum/$',views.searchForum,name = 'searchForum'),
     url(r'^searchBusiness/$',views.searchBusiness,name = 'searchBusiness'),
     url(r'^deletePost/(\d+)',views.deletePost,name = 'deletePost'),
+    url(r'^deleteBusiness/(\d+)',views.deleteBusiness,name = 'deleteBusiness'),
 ]

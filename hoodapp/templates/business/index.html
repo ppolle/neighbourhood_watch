@@ -25,7 +25,7 @@
 								<p>{{biz.description.capitalize}}</p>
 								
 								<a href="{% url 'editBusiness' biz.id %}" class="btn btn-sm btn-primary">Edit</a>
-								<a href="#" class="btn btn-sm btn-danger">Delete</a>
+								<a href="{% url 'deleteBusiness' biz.id %}" class="btn btn-sm btn-danger">Delete</a>
 							</div>
 							
 							

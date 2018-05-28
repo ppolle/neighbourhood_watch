@@ -331,3 +331,12 @@ def deletePost(request,postId):
 	messages.error(request,'Succesfully Deleted a Post Resource ')
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def deleteBusiness(request,bizId):
+	'''
+	View function that functions to delete a single business resource
+	'''
+	Business.objects.filter(pk = bizId).delete()
+	messages.error(request,'Succesfully Deleted a Business resource')
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
