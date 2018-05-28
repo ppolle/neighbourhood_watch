@@ -277,3 +277,10 @@ def changeHood(request):
 	'''
 	neighbourhoods = Neighbourhood.objects.all()
 	return render(request,'hood/joinhood.html',{"neighbourhoods":neighbourhoods})
+
+def myPosts(request):
+	'''
+	View functions to retrieve all post instances belonging to a logged in user
+	'''
+	myPosts = Posts.objects.filter(user = request.user)
+	return render(request,'posts/index.html',{"myPosts":myPosts})
