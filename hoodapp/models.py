@@ -13,6 +13,7 @@ class Neighbourhood(models.Model):
 	description = models.TextField(max_length = 300)
 	location = models.CharField(max_length = 100)
 	population = models.IntegerField()
+	user = models.ForeignKey(User)
 	
 	def __str__(self):
 		return self.name

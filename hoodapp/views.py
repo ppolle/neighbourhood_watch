@@ -53,7 +53,9 @@ def createHood(request):
 	if request.method == 'POST':
 		form = CreateHoodForm(request.POST)
 		if form.is_valid():
-			form.save()
+			hood = form.save(commit = False)
+			hood.user = request.user
+			hood.save()
 			messages.success(request, 'You Have succesfully created a hood.You may now join your neighbourhood')
 			return redirect('index')
 
