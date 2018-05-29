@@ -9,9 +9,60 @@ class Neighbourhood(models.Model):
 	'''
 	Model that creates the neighbourhood column in the database
 	'''
+	COUNTY_CHOICES = (
+('Baringo','Baringo County'),
+('Bomet','Bomet County'),
+('Bungoma','Bungoma County'),
+('Busia','Busia County'),
+('Elgeyo Marakwet','Elgeyo Marakwet County'),
+('Embu','Embu County'),
+('Garissa','Garissa County'),
+('Homa Bay','Homa Bay County'),
+('Isiolo','Isiolo County'),
+
+('Kajiado','Kajiado County'),
+('Kakamega','Kakamega County'),
+('Kericho','Kericho County'),
+('Kiambu','Kiambu County'),
+('Kilifi','Kilifi County'),
+('Kirinyaga','Kirinyaga County'),
+('Kisii','Kisii County'),
+('Kisumu','Kisumu County'),
+('Kitui','Kitui County'),
+('Kwale','Kwale County'),
+('Laikipia','Laikipia County'),
+('Lamu','Lamu County'),
+('Machakos','Machakos County'),
+('Makueni','Makueni County'),
+('Mandera','Mandera County'),
+('Meru','Meru County'),
+('Migori','Migori County'),
+('Marsabit','Marsabit County'),
+('Mombasa','Mombasa County'),
+('Muranga','Muranga County'),
+('Nairobi','Nairobi County'),
+('Nakuru','Nakuru County'),
+('Nandi','Nandi County'),
+('Narok','Narok County'),
+('Nyamira','Nyamira County'),
+('Nyandarua','Nyandarua County'),
+('Nyeri','Nyeri County'),
+('Samburu','Samburu County'),
+('Siaya','Siaya County'),
+('Taita Taveta','Taita Taveta County'),
+('Tana River','Tana River County'),
+('Tharaka Nithi','Tharaka Nithi County'),
+('Trans Nzoia','Trans Nzoia County'),
+('Turkana','Turkana County'),
+('Uasin Gishu','Uasin Gishu County'),
+('Vihiga','Vihiga County'),
+('Wajir','Wajir County'),
+('West Pokot','West Pokot County'),
+   
+    )
 	name = models.CharField(max_length = 300)
 	description = models.TextField(max_length = 300)
-	location = models.CharField(max_length = 100)
+	location = models.CharField(max_length = 100,choices=COUNTY_CHOICES)
 	population = models.IntegerField()
 	user = models.ForeignKey(User)
 	
