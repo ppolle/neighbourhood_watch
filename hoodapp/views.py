@@ -57,7 +57,7 @@ def createHood(request):
 			hood.user = request.user
 			hood.save()
 			messages.success(request, 'You Have succesfully created a hood.You may now join your neighbourhood')
-			return redirect('index')
+			return redirect('myHood')
 
 	else:
 		form = CreateHoodForm()
@@ -75,7 +75,7 @@ def editHood(request,hood_id):
 			form.save()
 			messages.success(request, 'Success! You Have succesfully edited your hood')
 			
-			return redirect('index')
+			return redirect('myHood')
 	else:
 		form = CreateHoodForm(instance = neighbourhood)
 		return render(request,'hood/edit.html',{"form":form,"neighbourhood":neighbourhood})
@@ -159,7 +159,7 @@ def search(request):
 	'''
 	if request.GET['search']:
 		search_term = request.GET.get("search")
-		hoods = Neighbourhood.objects.filter(name__icontains = search_term)
+		hoods = Neighbourhood.search_hood(search_term)
 		message = f"{search_term}"
 
 		return render(request,'hood/search.html',{"message":message,"hoods":hoods})

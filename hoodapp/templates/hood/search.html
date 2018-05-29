@@ -20,8 +20,11 @@
 						<div class="panel-body">
 							<p>{{hood.description.capitalize}}</p>
 							
-							
+							{%if user.join.hood_id.id == hood.id%}
+							<a href="{% url 'exitHood' hood.id %}" class="btn btn-sm btn-danger">Exit</a>
+							{%else%}
 							<a href="{% url 'joinHood' hood.id %}" class="btn btn-sm btn-success">Join</a>
+							{%endif%}
 						</div>				
 
 					</div>

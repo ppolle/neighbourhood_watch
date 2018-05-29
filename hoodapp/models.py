@@ -19,7 +19,6 @@ class Neighbourhood(models.Model):
 ('Garissa','Garissa County'),
 ('Homa Bay','Homa Bay County'),
 ('Isiolo','Isiolo County'),
-
 ('Kajiado','Kajiado County'),
 ('Kakamega','Kakamega County'),
 ('Kericho','Kericho County'),
@@ -65,6 +64,19 @@ class Neighbourhood(models.Model):
 	location = models.CharField(max_length = 100,choices=COUNTY_CHOICES)
 	population = models.IntegerField()
 	user = models.ForeignKey(User)
+
+	def save_hood(self):
+		self.save()
+
+	def delete_hood(self):
+		self.delete()
+
+	@classmethod	
+	def search_hood(cls,search_term):
+		hoods = cls.objects.filter(name__icontains = search_term)
+		return hoods
+
+
 	
 	def __str__(self):
 		return self.name
@@ -79,6 +91,17 @@ class Business(models.Model):
 	user = models.ForeignKey(User)
 	hood = models.ForeignKey(Neighbourhood)
 	
+	def save_biz(self):
+		self.save()
+
+	def delete_biz():
+		self.delete()
+
+	@classmethod
+	def find_business(cls,search_term):
+		businesses = cls.objects.filter(name__icontains = search_term)
+		return businesses
+
 	def __str__(self):
 		return self.name
 
@@ -118,6 +141,12 @@ class Posts(models.Model):
 	user = models.ForeignKey(User)
 	hood = models.ForeignKey(Neighbourhood)
 
+	def save_posts(self):
+		self.save()
+
+	def delete_posts(self):
+		self.delete()
+
 	def __str__(self):
 		return self.title
 class Comments(models.Model):
@@ -127,6 +156,12 @@ class Comments(models.Model):
 	comment = models.CharField(max_length = 600)
 	user = models.ForeignKey(User)
 	post = models.ForeignKey(Posts)
+
+	def save_comment(self):
+		self.save()
+
+	def delete_comment(self):
+		self.delete()
 
 	def __str__(self):
 		return self.comment
